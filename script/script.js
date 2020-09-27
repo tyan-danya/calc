@@ -36,5 +36,5 @@ var button = document.getElementsByClassName("button")[0];
 button.addEventListener("click", function() {
   let textBox = document.getElementsByClassName("textbox")[0];
   let calculationString = textBox.value;
-  calculator(calculationString);
+  console.log(calculator(calculationString));
 });
