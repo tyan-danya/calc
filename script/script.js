@@ -1,16 +1,15 @@
 function calculator(expression) {
-  let result = expression;
-  result = expression.replace(/ /g, "");
+  expression = expression.replace(/ /g, "");
   let numbers = new Array();
   let numbersKey = 0;
   let symbols = new Array();
   let symbolsKey = 0;
   let tempString = "";
-  for (let i = 0; i < result.length; i++) {
-    if (!isNaN(parseInt(result[i]))) {
-      tempString += result[i];
+  for (let i = 0; i < expression.length; i++) {
+    if (!isNaN(parseInt(expression[i]))) {
+      tempString += expression[i];
     } else {
-      symbols[symbolsKey] = result[i];
+      symbols[symbolsKey] = expression[i];
       symbolsKey++;
       numbers[numbersKey] = parseInt(tempString);
       tempString = "";
@@ -18,18 +17,34 @@ function calculator(expression) {
     }
   }
   numbers[numbersKey] = parseInt(tempString);
+  //console.log(numbers);
+  //console.log(symbols);
+  console.log("___");
+  while (symbols.length != 0){
+    console.log(symbols);
   console.log(numbers);
-  console.log(symbols);
-  for (let i = symbolsKey; i >= 0; i--) {
-    if (symbols[i] == "+") {
-      let tempNumber = numbers[i] + numbers[i + 1];
-      numbers[i] = tempNumber;
-    } else if (symbols[i] == "-") {
-      let tempNumber = numbers[i] - numbers[i + 1];
-      numbers[i] = tempNumber;
-    }
+  if (symbols[i] == "+") {
+    let tempNumber = numbers[i] + numbers[i + 1];
+    //console.log(tempNumber);
+    numbers[i] = tempNumber;
+  } else if (symbols[i] == "-") {
+    let tempNumber = numbers[i] - numbers[i + 1];
+    numbers[i] = tempNumber;
   }
-  return result;
+  for (let j = i; j < numbers.length; j++) {
+    numbers[i + 1] = numbers[i + 2];
+  }
+  for (let j = i; j < symbols.length; j++) {
+    symbols[i + 1] = symbols[i + 2];
+  }
+  numbers.pop();
+  symbols.pop();
+  console.log(symbols);
+  console.log(numbers);
+  console.log("___");
+  //i--;
+}
+return numbers;
 }
 
 var button = document.getElementsByClassName("button")[0];
