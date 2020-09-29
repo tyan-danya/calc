@@ -1,6 +1,12 @@
 function calculator(expression) {
   let result = expression;
   result = expression.replace(/ /g, "");
+  if (result.indexOf('(') != -1) {
+    let firstBracket = result.indexOf('(');
+    let secondBracket = result.indexOf(')');
+    let subexpression = result.substring(firstBracket + 1, secondBracket);
+    result = result.substring(0, firstBracket) + calculator(subexpression) + result.substring(secondBracket + 1, result.length);
+  }
   let numbers = new Array();
   let numbersKey = 0;
   let symbols = new Array();
