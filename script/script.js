@@ -1,4 +1,43 @@
+function isOper(symbol) {
+  if (symbol == "+" || symbol == "-" || symbol == "/" || symbol == "*") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+function checkExpression(expression) {
+  result = expression.replace(/ /g, "");
+
+  if (result.indexOf('(') != -1) {
+    let firstBracket = result.indexOf('(');
+    let secondBracket = result.indexOf(')');
+    let subexpression = result.substring(firstBracket + 1, secondBracket);
+    let _result = result;
+    if (checkExpression(subexpression)) {
+      result = _result.substring(0, firstBracket) + "0" + _result.substring(secondBracket + 1, _result.length);
+
+    } else {
+      return false;
+    }
+  }
+  //console.log(result);
+  for (let i = 0; i < result.length; i++) {
+    if (isNaN(parseInt(result[i])) && !isOper(result[i])) {
+      return false;
+    }
+    if (isNaN(parseInt(result[i])) && isNaN(parseInt(result[i + 1]))) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function calculator(expression) {
+  if (!checkExpression(expression)) {
+    return false;
+  }
   let result = expression;
   result = expression.replace(/ /g, "");
   if (result.indexOf('(') != -1) {
@@ -13,8 +52,9 @@ function calculator(expression) {
   let symbolsKey = 0;
   let tempString = "";
   for (let i = 0; i < result.length; i++) {
-    if (!isNaN(parseInt(result[i]))) {
+    if (!isNaN(parseInt(result[i])) || tempString == "") {
       tempString += result[i];
+
     } else {
       symbols[symbolsKey] = result[i];
       symbolsKey++;
@@ -73,5 +113,7 @@ var button = document.getElementsByClassName("button")[0];
 button.addEventListener("click", function() {
   let textBox = document.getElementsByClassName("textbox")[0];
   let calculationString = textBox.value;
-  calculator(calculationString);
+  let result = calculator(calculationString);
+  let resDiv = document.getElementsByClassName("result")[0];
+  resDiv.innerHTML = result;
 });
