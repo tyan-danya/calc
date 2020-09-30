@@ -9,7 +9,6 @@ function isOper(symbol) {
 
 function checkExpression(expression) {
   result = expression.replace(/ /g, "");
-
   if (result.indexOf('(') != -1) {
     let firstBracket = result.indexOf('(');
     let secondBracket = result.indexOf(')');
@@ -22,7 +21,6 @@ function checkExpression(expression) {
       return false;
     }
   }
-  //console.log(result);
   for (let i = 0; i < result.length; i++) {
     if (isNaN(parseInt(result[i])) && !isOper(result[i])) {
       return false;
@@ -54,7 +52,6 @@ function calculator(expression) {
   for (let i = 0; i < result.length; i++) {
     if (!isNaN(parseInt(result[i])) || tempString == "") {
       tempString += result[i];
-
     } else {
       symbols[symbolsKey] = result[i];
       symbolsKey++;
@@ -84,7 +81,6 @@ function calculator(expression) {
       symbols.pop();
       i--;
     }
-
   }
   // сложение/вычитание
   for (let i = 0; i < symbols.length; i++) {
