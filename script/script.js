@@ -44,6 +44,9 @@ function calculator(expression) {
     let subexpression = result.substring(firstBracket + 1, secondBracket);
     result = result.substring(0, firstBracket) + calculator(subexpression) + result.substring(secondBracket + 1, result.length);
   }
+  if (result.indexOf("/0") != -1) {
+    return false;
+  }
   let numbers = new Array();
   let numbersKey = 0;
   let symbols = new Array();
