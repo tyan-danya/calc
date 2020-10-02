@@ -12,6 +12,8 @@ function checkExpression(expression) {
   while (result.indexOf('(') !== -1) {
     let firstBracket = result.indexOf('(');
     let secondBracket = result.indexOf(')');
+    if (secondBracket === -1)
+      return false;
     let subexpression = result.substring(firstBracket + 1, secondBracket);
     let _result = result;
     if (checkExpression(subexpression)) {
@@ -21,6 +23,8 @@ function checkExpression(expression) {
       return false;
     }
   }
+  if (result.indexOf(')') !== -1)
+    return false;
   for (let i = 0; i < result.length; i++) {
     if (isNaN(parseInt(result[i])) && !isOper(result[i])) {
       return false;
