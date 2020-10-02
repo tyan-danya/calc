@@ -1,5 +1,5 @@
 function isOper(symbol) {
-  if (symbol == "+" || symbol == "-" || symbol == "/" || symbol == "*") {
+  if (symbol === "+" || symbol === "-" || symbol === "/" || symbol === "*") {
     return true;
   } else {
     return false;
@@ -9,7 +9,7 @@ function isOper(symbol) {
 
 function checkExpression(expression) {
   result = expression.replace(/ /g, "");
-  if (result.indexOf('(') != -1) {
+  while (result.indexOf('(') !== -1) {
     let firstBracket = result.indexOf('(');
     let secondBracket = result.indexOf(')');
     let subexpression = result.substring(firstBracket + 1, secondBracket);
@@ -38,13 +38,14 @@ function calculator(expression) {
   }
   let result = expression;
   result = expression.replace(/ /g, "");
-  if (result.indexOf('(') != -1) {
+  while (result.indexOf('(') !== -1) {
     let firstBracket = result.indexOf('(');
     let secondBracket = result.indexOf(')');
     let subexpression = result.substring(firstBracket + 1, secondBracket);
     result = result.substring(0, firstBracket) + calculator(subexpression) + result.substring(secondBracket + 1, result.length);
   }
-  if (result.indexOf("/0") != -1) {
+  console.log(result);
+  if (result.indexOf("/0") !== -1) {
     return false;
   }
   let numbers = new Array();
@@ -53,7 +54,7 @@ function calculator(expression) {
   let symbolsKey = 0;
   let tempString = "";
   for (let i = 0; i < result.length; i++) {
-    if (!isNaN(parseInt(result[i])) || tempString == "") {
+    if (!isNaN(parseInt(result[i])) || tempString === "") {
       tempString += result[i];
     } else {
       symbols[symbolsKey] = result[i];
@@ -66,14 +67,14 @@ function calculator(expression) {
   numbers[numbersKey] = parseInt(tempString);
   // умножение/деление
   for (let i = 0; i < symbols.length; i++) {
-    if (symbols[i] == "*") {
+    if (symbols[i] === "*") {
       let tempNumber = numbers[i] * numbers[i + 1];
       numbers[i] = tempNumber;
-    } else if (symbols[i] == "/") {
+    } else if (symbols[i] === "/") {
       let tempNumber = numbers[i] / numbers[i + 1];
       numbers[i] = tempNumber;
     }
-    if (symbols[i] == "*" || symbols[i] == "/") {
+    if (symbols[i] === "*" || symbols[i] === "/") {
       for (let j = i; j < numbers.length - 1; j++) {
         numbers[j + 1] = numbers[j + 2];
       }
@@ -87,10 +88,10 @@ function calculator(expression) {
   }
   // сложение/вычитание
   for (let i = 0; i < symbols.length; i++) {
-    if (symbols[i] == "+") {
+    if (symbols[i] === "+") {
       let tempNumber = numbers[i] + numbers[i + 1];
       numbers[i] = tempNumber;
-    } else if (symbols[i] == "-") {
+    } else if (symbols[i] === "-") {
       let tempNumber = numbers[i] - numbers[i + 1];
       numbers[i] = tempNumber;
     }
